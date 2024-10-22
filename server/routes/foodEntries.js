@@ -1,14 +1,15 @@
 const express = require('express');
 const FoodEntry = require('../models/FoodEntry');
+const auth = require('../middleware/auth');  // Middleware to verify the token
 const router = express.Router();
 
-// Create a new food entry
-router.post('/add', async (req, res) => {
-  const { userId, name, calories, carbohydrates, proteins, fats } = req.body;
+// Create a new food entry (protected route)
+router.post('/add', auth, async (req, res) => {
+  const { name, calories, carbohydrates, proteins, fats } = req.body;
 
   try {
     const foodEntry = new FoodEntry({
-      user: userId,
+      user: req.user.id,  // Get user ID from the token
       name,
       calories,
       carbohydrates,
@@ -24,10 +25,10 @@ router.post('/add', async (req, res) => {
   }
 });
 
-// Get all food entries for a user
-router.get('/:userId', async (req, res) => {
+// Get all food entries for a user (protected route)
+router.get('/', auth, async (req, res) => {
   try {
-    const foodEntries = await FoodEntry.find({ user: req.params.userId });
+    const foodEntries = await FoodEntry.find({ user: req.user.id });
     res.json(foodEntries);
   } catch (err) {
     console.error(err);
