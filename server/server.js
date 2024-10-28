@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
+const foodEntryRoutes = require('./routes/foodEntries');
+const nutritionalGoalRoutes = require('./routes/nutritionalGoals');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -31,6 +33,8 @@ app.get('/', (req, res) => {
 
 // Use routes
 app.use('/api/auth', authRoutes);
+app.use('/api/food', foodEntryRoutes);              // New route for food entries
+app.use('/api/goals', nutritionalGoalRoutes);       // New route for nutritional goals
 
 // Listen on a port (from .env or default to 5000)
 const PORT = process.env.PORT || 5000;
