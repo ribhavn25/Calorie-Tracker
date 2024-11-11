@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const foodEntryRoutes = require('./routes/foodEntries');
 const nutritionalGoalRoutes = require('./routes/nutritionalGoals');
+const cors = require('cors');  // Import cors
 
 // Load environment variables from .env file
 dotenv.config();
@@ -14,6 +15,8 @@ const app = express();
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+app.use(cors());  // Enable CORS for all origins
 
 // Connect to MongoDB
 mongoose
