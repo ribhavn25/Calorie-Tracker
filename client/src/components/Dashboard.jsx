@@ -43,14 +43,30 @@ const Dashboard = () => {
       alert("You're not logged in. Please log in first.");
       return;
     }
-
+  
     try {
       const response = await axios.get('http://localhost:3001/api/goals', {
         headers: { 'Authorization': `Bearer ${token}` },
       });
-      const goalData = response.data || { calories: 0, carbohydrates: 0, proteins: 0, fats: 0 };
+      
+      const serverGoal = response.data;
+      let goalData;
+      
+      if (serverGoal) {
+        // Map server fields to frontend fields
+        goalData = {
+          calories: serverGoal.dailyCalorieGoal,
+          carbohydrates: serverGoal.dailyCarbohydrateGoal,
+          proteins: serverGoal.dailyProteinGoal,
+          fats: serverGoal.dailyFatGoal
+        };
+      } else {
+        // If no goals are set, default to zero
+        goalData = { calories: 0, carbohydrates: 0, proteins: 0, fats: 0 };
+      }
+  
       setGoal(goalData);
-      setTempGoal(goalData); // Initialize tempGoal with existing goals
+      setTempGoal(goalData);
       setLoadingGoals(false);
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -69,13 +85,20 @@ const Dashboard = () => {
       alert("You're not logged in. Please log in first.");
       return;
     }
-
+  
     try {
-      // Only now do we update the main goal state and send to server
-      setGoal(tempGoal);
-      await axios.post('http://localhost:3001/api/goals/set', tempGoal, {
+      const payload = {
+        dailyCalorieGoal: tempGoal.calories,
+        dailyCarbohydrateGoal: tempGoal.carbohydrates,
+        dailyProteinGoal: tempGoal.proteins,
+        dailyFatGoal: tempGoal.fats
+      };
+  
+      await axios.post('http://localhost:3001/api/goals/set', payload, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
+
+      setGoal(tempGoal);
       alert('Goals updated successfully');
     } catch (error) {
       if (error.response && error.response.status === 401) {
