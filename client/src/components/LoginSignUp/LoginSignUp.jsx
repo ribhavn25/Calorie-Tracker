@@ -16,7 +16,6 @@ const LoginSignUp = ({ setIsLoggedIn }) => {
   const handleSubmit = async () => {
     try {
       if (action === 'Register') {
-        const response = await axios.post('http://localhost:3001/api/auth/register', { name, email, password });
         alert('Registration successful');
       } else {
         const response = await axios.post('http://localhost:3001/api/auth/login', { email, password });
@@ -31,8 +30,8 @@ const LoginSignUp = ({ setIsLoggedIn }) => {
         }
       }
     } catch (error) {
-      console.error('Error:', error.response ? error.response.data : error.message);
-      alert(error.response?.data || 'An error occurred. Please try again.');
+      // Show the server's message if available, otherwise show a generic error
+      alert(error.response?.data?.msg || 'An error occurred. Please try again.');
     }
   };
 
