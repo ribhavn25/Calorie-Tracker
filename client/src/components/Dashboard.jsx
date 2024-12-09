@@ -117,7 +117,14 @@ const Dashboard = () => {
       alert("You're not logged in. Please log in first.");
       return;
     }
-
+  
+    // Validate input
+    const { calories, carbohydrates, proteins, fats } = foodItem;
+    if (calories < 0 || carbohydrates < 0 || proteins < 0 || fats < 0) {
+      alert("Invalid input: Values for calories, carbs, proteins, or fats cannot be negative.");
+      return; // Stop here and don't call the server
+    }
+  
     try {
       await axios.post('http://localhost:3001/api/food/add', foodItem, {
         headers: { 'Authorization': `Bearer ${token}` },
