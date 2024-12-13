@@ -1,10 +1,10 @@
 # nutrition-calorie-tracker-app
 
-#Project Motivation:
+# Project Motivation:
 
 Tracking calories/macronutrients can be very overwhelming so this application is a user-friendly and accessible solution that helps all people track their relevant health information.
 
-#Project Description:
+# Project Description:
 
 Allows users to:
 Manually log food items to track on a daily basis
@@ -29,7 +29,7 @@ and change the port and uri to your choosing
 9. Run npm dev
 
 
-#Contributors
+# Contributors
 
 Responsible for Front End Development:
 
