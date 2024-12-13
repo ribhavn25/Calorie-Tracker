@@ -1,8 +1,7 @@
 # nutrition-tracker
 
 # To run project, split terminal access
-
-# Front end - cd into front-end using cd client \
+ Front end - cd into front-end using cd client \
 
 # Make sure react scripts are installed use: npm install react-scripts
 
