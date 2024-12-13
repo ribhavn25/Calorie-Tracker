@@ -33,12 +33,12 @@ and change the port and uri to your choosing
 
 Responsible for Front End Development:
 
-Jie Pan
+Jie Pan /n
 Ribhav Nagayach
 
 Responsible for Back End Development:
 
-Tyler Olszewski
+Tyler Olszewski /n
 Vraj Patel
 
 
